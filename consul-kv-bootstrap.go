@@ -97,8 +97,8 @@ func main() {
 		/services/nginx_hosts/web1/ssl_certficate => ... (cat ./ssl/web1.example.tld.crt ./ssl/sub_chain.crt ./ssl/ca.crt)
 		/services/nginx_hosts/web1/ssl_key => ... (cat ./ssl/web1.example.tld.key)
 
-		The default way to connect to consul is via 127.0.0.1:8500 .
-		To modify the way to connect to consul, the following environment variables can be used:
+		The default address for connecting Consul is http://127.0.0.1:8500.
+		Connecting to Consul can be influenced by the following environment variables:
 		CONSUL_HTTP_ADDR
 		CONSUL_HTTP_TOKEN
 		CONSUL_HTTP_AUTH
@@ -108,18 +108,18 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "file, f",
-			Usage: "Your yaml configuration file for populating the consul key value database",
+			Usage: "Your YAML file for populating the consul key value database",
 		},
 		cli.StringFlag{
 			Name:  "prefix, p",
-			Usage: "A consul prefix for your yaml configuration (For example /services/nodes/test/)",
+			Usage: "A consul prefix for your YAML config (/test/bootstrap/)",
 		},
 	}
 
 	app.Action = func(c *cli.Context) error {
 
 		if len(c.String("file")) == 0 {
-			fmt.Printf("Missing Required File -file Parameter.\n")
+			fmt.Printf("Missing required parameter -file (-file app.yaml).\n")
 			os.Exit(1)
 		}
 
